@@ -1,0 +1,98 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+// Book class
+class Book {
+    private String title;
+    private String author;
+    private String ISBN;
+
+    // Constructor
+    public Book(String title, String author, String ISBN) {
+        this.title = title;
+        this.author = author;
+        this.ISBN = ISBN;
+    }
+
+    // Getter methods
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    @Override
+    public String toString() {
+        return "Title: " + title + ", Author: " + author + ", ISBN: " + ISBN;
+    }
+}
+
+// Library class
+class Library {
+    private List<Book> bookList;
+
+    // Constructor
+    public Library() {
+        this.bookList = new ArrayList<>();
+    }
+
+    // Method to add a book to the library
+    public void addBook(Book book) {
+        bookList.add(book);
+        System.out.println("Book added to the library: " + book.getTitle());
+    }
+
+    // Method to remove a book from the library
+    public void removeBook(String ISBN) {
+        Iterator<Book> iterator = bookList.iterator();
+        while (iterator.hasNext()) {
+            Book book = iterator.next();
+            if (book.getISBN().equals(ISBN)) {
+                iterator.remove();
+                System.out.println("Book removed from the library: " + book.getTitle());
+                return;
+            }
+        }
+        System.out.println("Book with ISBN " + ISBN + " not found in the library.");
+    }
+
+    // Method to display all books in the library
+    public void displayBooks() {
+        System.out.println("Books in the library:");
+        for (Book book : bookList) {
+            System.out.println(book);
+        }
+    }
+}
+
+// Main class to test the Library Management System
+public class LibraryManagementSystem {
+    public static void main(String[] args) {
+        // Create books
+        Book book1 = new Book("The Catcher in the Rye", "J.D. Salinger", "9780140237504");
+        Book book2 = new Book("To Kill a Mockingbird", "Harper Lee", "0061120081");
+
+        // Create library
+        Library library = new Library();
+
+        // Add books to the library
+        library.addBook(book1);
+        library.addBook(book2);
+
+        // Display all books in the library
+        library.displayBooks();
+
+        // Remove a book from the library
+        library.removeBook("9780140237504");
+
+        // Display updated list of books in the library
+        library.displayBooks();
+    }
+}
